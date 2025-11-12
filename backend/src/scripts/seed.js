@@ -16,6 +16,8 @@ const sampleRecipes = [
     instructions:
       '1. Preheat oven to 450°F (230°C)\n2. Roll out pizza dough on floured surface\n3. Spread tomato sauce evenly\n4. Add mozzarella cheese as base\n5. Top with bell peppers, onions, mushrooms, olives\n6. Add pepperoni, sausage, and extra cheese\n7. Bake for 12-15 minutes until golden\n8. Let cool for 2 minutes before slicing\n9. Serve hot with garlic bread',
     tags: ['pizza', 'vegetarian', 'italian', 'cheesy', 'delicious', 'comfort food'],
+    instructions:
+      '1. Preheat oven to 450°F (230°C)\n2. Roll out pizza dough on floured surface\n3. Spread tomato sauce evenly\n4. Add mozzarella cheese as base\n5. Top with bell peppers, onions, mushrooms, and olives\n6. Add some sliced zucchini and cherry tomatoes for extra flavor\n7. Bake for 12-15 minutes until golden\n8. Let cool for 2 minutes before slicing\n9. Serve hot with a sprinkle of fresh basil',
     ingredients: [
       { name: 'Pizza dough', quantity: '1 lb' },
       { name: 'Tomato sauce', quantity: '1/2 cup' },
