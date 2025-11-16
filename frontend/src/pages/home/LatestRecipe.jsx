@@ -9,7 +9,7 @@ const LatestRecipe = ()=>{
     useEffect(()=>{
         if (!isAuthed) return;
         const getLatesItems=async ()=>{
-            const response =await axios.get('http://localhost:7000/api/all-items');
+            const response =await axios.get('/api/all-items');
             setItems(response.data);
         }
         getLatesItems()

@@ -8,7 +8,7 @@ const Recipes = () => {
 
   const fetchAll = async () => {
     try {
-      const res = await fetch('http://localhost:7000/api/all-items')
+      const res = await fetch('/api/all-items')
       const data = await res.json()
       if (!res.ok) throw new Error(data.message || 'Failed to load recipes')
       if (Array.isArray(data) && data.length > 0) {
@@ -32,13 +32,13 @@ const Recipes = () => {
         comments: [],
         more: [{ prep_time: '5 minutes', cook_time: '2 minutes', servings: '1', difficulty: 'Easy', source: 'Seed' }]
       }
-      const createRes = await fetch('http://localhost:7000/api/items', {
+      const createRes = await fetch('/api/items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(sample)
       })
       if (createRes.ok) {
-        const refetch = await fetch('http://localhost:7000/api/all-items')
+        const refetch = await fetch('/api/all-items')
         const refetchData = await refetch.json()
         setItems(Array.isArray(refetchData) ? refetchData : [])
       } else {

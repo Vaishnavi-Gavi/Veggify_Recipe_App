@@ -90,10 +90,12 @@ const CreateRecipe = () => {
         }]
       };
 
-      const response = await fetch('http://localhost:7000/api/items', {
+      const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
+      const response = await fetch('/api/items', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
         },
         body: JSON.stringify(recipeData)
       });

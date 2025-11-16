@@ -1,5 +1,6 @@
 const User = require('../model/UserModel');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 exports.signup = async (req, res) => {
   try {
@@ -35,8 +36,7 @@ exports.login = async (req, res) => {
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid credentials.' });
     }
-    // Return a simple token string for frontend route guards
-    const token = `token-${user._id}-${Date.now()}`;
+    const token = jwt.sign({ sub: user._id.toString(), username: user.username }, process.env.JWT_SECRET || 'dev_secret', { expiresIn: '7d' });
     res.status(200).json({ message: 'Login successful.', token, username: user.username });
   } catch (err) {
     res.status(500).json({ message: 'Server error.' });

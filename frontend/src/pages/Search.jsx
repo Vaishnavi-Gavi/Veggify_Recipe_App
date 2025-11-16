@@ -25,7 +25,7 @@ const Search = () => {
                 return;
             }
             try{
-                const response = await axios.get('http://localhost:7000/api/items',{
+                const response = await axios.get('/api/items',{
                     params:{q:query}
                 });
                 setResults(response.data);

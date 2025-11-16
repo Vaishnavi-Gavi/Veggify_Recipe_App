@@ -152,7 +152,7 @@ const Footer = () => {
     </div>
     <hr />
 
-    <p className="text-xs text-gray-500 text-center">© 2025. Company Name. All rights reserved.</p>
+    <p className="text-xs text-gray-500 text-center">© 2025. Veggify-Recipe. All rights reserved.</p>
   </div>
 </footer>
   )

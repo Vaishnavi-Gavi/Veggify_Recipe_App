@@ -16,7 +16,7 @@ const CategoryPage = () => {
         setLoading(true);
 
         try{
-          const response = await axios.get(`http://localhost:7000/api/categories/${category}`);
+          const response = await axios.get(`/api/categories/${category}`);
           setItems(response.data);
         }
         catch(error){

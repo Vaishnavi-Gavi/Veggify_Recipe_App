@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const Item = require('../model/ItemModel');
 
 // Prefer env var, fallback to app connection string
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://gavivaishnavi1_db_user:KuxA0P0IySd9mZxQ@vegy-app.tt9hwes.mongodb.net/?retryWrites=true&w=majority&appName=vegy-app';
 const MONGODB_URI = process.env.MONGODB_URI;
 
 // Sample recipe data (normalized to match ItemModel schema)
@@ -38,7 +37,6 @@ const sampleRecipes = [
     more: {
       prep_time: '20 mins',
       cook_time: '15 mins',
-...
       servings: '4',
       difficulty: 'Easy',
       source: 'Family Recipe',
@@ -51,7 +49,6 @@ const sampleRecipes = [
       'https://img.freepik.com/free-photo/fresh-flavorful-mashed-potatoes_2829-11458.jpg',
     category: 'sides',
     instructions:
-...
       '1. Peel and quarter potatoes into even pieces\n2. Boil in salted water until fork-tender (15-20 minutes)\n3. Drain thoroughly and return to pot\n4. Add butter, minced garlic, and warm milk\n5. Mash until smooth and creamy\n6. Season with salt and pepper to taste\n7. Serve hot with extra butter on top',
     tags: ['comfort food', 'garlic', 'creamy', 'traditional', 'potatoes'],
     ingredients: [
@@ -80,3 +77,5 @@ const sampleRecipes = [
     category: 'entrees',
     instructions:
       '1. Cut cauliflower into florets\n2. Make batter with flour and cornflour\n3. Deep fry cauliflower until golden\n4. Make sauce with onions, capsicum, soy sauce\n5. Add fried cauliflower to sauce\n6. Toss well and serve hot',
+
+}    ]

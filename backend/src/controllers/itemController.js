@@ -2,7 +2,7 @@ const  Item=require("../model/ItemModel")
 const mongoose = require('mongoose');
 
 const  getAllItems= async(req,res)=>{
-   const result=await Item.find().sort({createAt: -1});
+   const result=await Item.find().sort({ createdAt: -1 }).lean();
    res.status(200).json(result);
 }
 const getSearchedItems =async (req, res) => {
@@ -13,10 +13,10 @@ const getSearchedItems =async (req, res) => {
         console.log('Search query:', q);
         if (q && q.toString().trim() !== ''){
             // search by name (case-insensitive)
-            items = await Item.find({ name: { $regex: q, $options: 'i' } });
+            items = await Item.find({ name: { $regex: q, $options: 'i' } }).lean();
         } else {
             // no query provided -> return all items (same behaviour as getAllItems)
-            items = await Item.find();
+            items = await Item.find().lean();
         }
         console.log('Found items:', Array.isArray(items) ? items.length : 0);
         return res.status(200).json(items);
@@ -32,10 +32,10 @@ const getSingleItem =async (req, res) => {
     try{
         let item = null;
         if (mongoose.Types.ObjectId.isValid(id)) {
-            item = await Item.findById(id);
+            item = await Item.findById(id).lean();
         } else {
             const menuid = isNaN(Number(id)) ? id : Number(id);
-            item = await Item.findOne({ menuid });
+            item = await Item.findOne({ menuid }).lean();
         }
         if (!item) {
             return res.status(404).json({ message: 'Item not found' });
