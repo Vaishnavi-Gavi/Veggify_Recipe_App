@@ -108,7 +108,7 @@ const Login = () => {
           <div className="text-center text-sm text-gray-600">
             Don't have an account?{' '}
             <Link to="/signup" className="text-btnColor font-semibold hover:underline">
-              Signup
+              Sign Up
             </Link>
           </div>
         </form>
