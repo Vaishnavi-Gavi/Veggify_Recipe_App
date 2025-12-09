@@ -20,10 +20,19 @@ async function main() {
     : 'mongodb://127.0.0.1:27017/veggify';
   const DB_NAME = process.env.DB_NAME || (MONGO_URI.startsWith('mongodb://') ? 'veggify' : undefined);
 
-  await mongoose.connect(MONGO_URI, {
-    dbName: DB_NAME,
-  });
-  console.log("Mongodb Connected Successfully");
+  console.log('[backend] Starting MongoDB connection...');
+  console.log('[backend] MONGO_URI set:', !!process.env.MONGODB_URI);
+  console.log('[backend] JWT_SECRET set:', !!process.env.JWT_SECRET);
+
+  try {
+    await mongoose.connect(MONGO_URI, {
+      dbName: DB_NAME,
+    });
+    console.log("[backend] Mongodb Connected Successfully");
+  } catch (mongoErr) {
+    console.error('[backend] MongoDB connection failed:', mongoErr && mongoErr.message ? mongoErr.message : mongoErr);
+    throw mongoErr;
+  }
 
   app.get('/', (req, res) => {
     res.send('Veggify Recipe App Server is Running!')
@@ -32,9 +41,16 @@ async function main() {
   app.use('/api', ItemRoutes);
   app.use('/api', CategoryRoutes);
   app.use('/api/auth', AuthRoutes);
+
+  // Global error handler
+  app.use((err, req, res, next) => {
+    console.error('[backend] request error:', err && err.stack ? err.stack : err);
+    res.status(500).json({ error: 'Internal server error', message: err && err.message ? err.message : 'Unknown error' });
+  });
 }
 main().catch(err => {
-  console.error('Mongo connection error:', err && err.message ? err.message : err);
+  console.error('[backend] Fatal error during startup:', err && err.message ? err.message : err);
+  if (err && err.stack) console.error(err.stack);
 });
 
 module.exports = app;
