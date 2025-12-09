@@ -15,6 +15,15 @@ module.exports = (req, res) => {
 			return res.end(JSON.stringify({ ok: true, time: new Date().toISOString() }));
 		}
 
+		// Debug endpoint: report presence of required environment variables (DO NOT return values)
+		if (req.method === 'GET' && (req.url === '/api/debug' || req.url === '/debug')) {
+			const hasMongo = !!process.env.MONGODB_URI;
+			const hasJwt = !!process.env.JWT_SECRET;
+			res.setHeader('Content-Type', 'application/json');
+			res.statusCode = 200;
+			return res.end(JSON.stringify({ ok: true, hasMongo, hasJwt, nodeEnv: process.env.NODE_ENV || null }));
+		}
+
 		// Forward request to Express app
 		return app(req, res);
 	} catch (err) {
