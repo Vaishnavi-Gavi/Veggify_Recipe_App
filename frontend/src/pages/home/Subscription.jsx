@@ -50,7 +50,7 @@ const Subscription = () => {
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="flex-auto rounded-md border-0 bg-primary px-3.5 py-4 text-white placeholder:text-gray-300 shadow-sm text-sm sm:leading-6 focus:outline-btnColor focus:ring-2 focus:ring-btnColor"
+                            className="flex-auto rounded-md border-0 bg-primary px-3.5 py-4 text-black placeholder:text-gray-300 shadow-sm text-sm sm:leading-6 focus:outline-btnColor focus:ring-2 focus:ring-btnColor"
                             placeholder='Enter your email'
                         />
                         <button 

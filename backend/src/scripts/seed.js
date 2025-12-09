@@ -1,12 +1,10 @@
-/* eslint-disable no-console */
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Item = require('../model/ItemModel');
 
-// Prefer env var, fallback to app connection string
+
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// Sample recipe data (normalized to match ItemModel schema)
 const sampleRecipes = [
   {
     menuId: 0,

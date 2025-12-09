@@ -32,8 +32,8 @@ const NewsLetter = ()=>{
             )}
 
             <form onSubmit={onSubmit} className='mt-6 flex flex-col md:flex-row items-center justify-center w-full md:px-8 gap-4 mb:20'>
-                <input value={name} onChange={(e)=>setName(e.target.value)} className='flex flex-grow px-4 py-4 rounded text-gray-700 outline-none placeholder:text-[#1b2629] border border-gray-200 focus:ring-2 focus:ring-btnColor' type="text" placeholder='Name'/>
-                <input value={email} onChange={(e)=>setEmail(e.target.value)} className='flex flex-grow px-4 py-4 rounded text-gray-700 outline-none placeholder:text-[#1b2629] border border-gray-200 focus:ring-2 focus:ring-btnColor' type="email" placeholder='Email Address'/>    
+                <input value={name} onChange={(e)=>setName(e.target.value)} className='flex flex-grow px-4 py-4 rounded text-black outline-none placeholder:text-[#1b2629] border border-gray-200 focus:ring-2 focus:ring-btnColor' type="text" placeholder='Name'/>
+                <input value={email} onChange={(e)=>setEmail(e.target.value)} className='flex flex-grow px-4 py-4 rounded text-black outline-none placeholder:text-[#1b2629] border border-gray-200 focus:ring-2 focus:ring-btnColor' type="email" placeholder='Email Address'/>    
                 <button type='submit' className='py-4 px-8 bg-btnColor text-white hover:bg-opacity-90 w-full md:w-auto transition ease-in duration-200 text-center text-base font-semibold rounded-lg'>Get Started</button>
             </form>
         </div>
