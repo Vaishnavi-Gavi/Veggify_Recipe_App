@@ -25,6 +25,14 @@
       "dest": "backend/index.js"
     },
     {
+      "src": "^/favicon.ico$",
+      "dest": "/fav-icon.png"
+    },
+    {
+      "src": "^/vite.svg$",
+      "dest": "/fav-icon.png"
+    },
+    {
       "src": "/(.*)",
       "dest": "frontend/dist/index.html"
     }
