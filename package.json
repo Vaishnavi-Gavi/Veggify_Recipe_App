@@ -2,14 +2,5 @@
   "name": "veggify-recipe-app",
   "version": "1.0.0",
   "description": "Veggify - A comprehensive recipe application with backend API and React frontend",
-  "private": true,
-  "workspaces": [
-    "backend",
-    "frontend"
-  ],
-  "scripts": {
-    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
-    "build": "npm run build -w backend && npm run build -w frontend",
-    "start": "npm start -w backend"
-  }
+  "private": true
 }
