@@ -20,17 +20,22 @@ async function main() {
     : 'mongodb://127.0.0.1:27017/veggify';
   const DB_NAME = process.env.DB_NAME || (MONGO_URI.startsWith('mongodb://') ? 'veggify' : undefined);
 
-  console.log('[backend] Starting MongoDB connection...');
-  console.log('[backend] MONGO_URI set:', !!process.env.MONGODB_URI);
-  console.log('[backend] JWT_SECRET set:', !!process.env.JWT_SECRET);
+  console.log('[backend] ========================================');
+  console.log('[backend] Starting Veggify Backend Server');
+  console.log('[backend] Node Environment:', process.env.NODE_ENV || 'development');
+  console.log('[backend] MONGODB_URI is set:', !!process.env.MONGODB_URI);
+  console.log('[backend] JWT_SECRET is set:', !!process.env.JWT_SECRET);
+  console.log('[backend] ========================================');
 
   try {
+    console.log('[backend] Connecting to MongoDB...');
     await mongoose.connect(MONGO_URI, {
       dbName: DB_NAME,
     });
-    console.log("[backend] Mongodb Connected Successfully");
+    console.log("[backend] ✓ MongoDB Connected Successfully");
   } catch (mongoErr) {
-    console.error('[backend] MongoDB connection failed:', mongoErr && mongoErr.message ? mongoErr.message : mongoErr);
+    console.error('[backend] ✗ MongoDB connection failed:', mongoErr && mongoErr.message ? mongoErr.message : mongoErr);
+    console.error('[backend] Make sure MONGODB_URI is set in Vercel Environment Variables');
     throw mongoErr;
   }
 
@@ -42,6 +47,9 @@ async function main() {
   app.use('/api', CategoryRoutes);
   app.use('/api/auth', AuthRoutes);
 
+  console.log('[backend] ✓ All routes registered');
+  console.log('[backend] Server is ready to handle requests');
+
   // Global error handler
   app.use((err, req, res, next) => {
     console.error('[backend] request error:', err && err.stack ? err.stack : err);
@@ -49,8 +57,12 @@ async function main() {
   });
 }
 main().catch(err => {
-  console.error('[backend] Fatal error during startup:', err && err.message ? err.message : err);
+  console.error('[backend] ========================================');
+  console.error('[backend] FATAL ERROR DURING STARTUP');
+  console.error('[backend] Error:', err && err.message ? err.message : err);
   if (err && err.stack) console.error(err.stack);
+  console.error('[backend] ========================================');
+  process.exit(1);
 });
 
 module.exports = app;
