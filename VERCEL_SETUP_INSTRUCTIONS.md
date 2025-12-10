@@ -11,9 +11,10 @@
 ### Step 2: Add MONGODB_URI
 1. Click **Add New**
 2. Name: `MONGODB_URI`
-3. Value: Copy-paste the entire value from your `backend/.env`:
+3. Value: **CRITICAL SECURITY WARNING:** Copy-paste the value from your local `backend/.env` file. **DO NOT** commit your `.env` file or paste secrets into version-controlled files like this one.
    ```
-   mongodb+srv://gavivaishnavi1_db_user:veggifygavi@vegy-app.tt9hwes.mongodb.net/?appName=vegy-app
+   # Example format from your local .env file
+   mongodb+srv://<user>:<password>@<your-cluster-url>/?appName=vegy-app
    ```
 4. Select **Production** (or leave as "All" for all environments)
 5. Click **Save**
@@ -23,7 +24,8 @@
 2. Name: `JWT_SECRET`
 3. Value: Copy-paste the entire value from your `backend/.env`:
    ```
-   6a6e42e27e6d094ab5162dff2a108e2add3c4f8685e65e4885d885fc717f6ed0afa77681c5346f1398d58df3c581de3e0a703fa29a8914f358392396251f7091
+   # Example format from your local .env file. Use a long, random, secret string.
+   your_super_secret_jwt_string_that_is_at_least_64_characters_long
    ```
 4. Select **Production** (or leave as "All")
 5. Click **Save**
@@ -93,13 +95,14 @@ Expected: 201 status with `{ "message": "User created successfully." }`
   - Missing database or collection
   - Schema validation errors
 
-## Quick Reference: Your Credentials
+## Quick Reference: Credential Placeholders
 
-Do not commit these to Git!
+**CRITICAL: NEVER COMMIT SECRETS TO GIT.**
+This file is in version control. The values below are placeholders. Your actual secrets should only exist in your local `.env` file (which should be in `.gitignore`) and in the Vercel Environment Variables settings.
 
-- **MONGODB_URI**: `mongodb+srv://gavivaishnavi1_db_user:veggifygavi@vegy-app.tt9hwes.mongodb.net/?appName=vegy-app`
-- **JWT_SECRET**: `6a6e42e27e6d094ab5162dff2a108e2add3c4f8685e65e4885d885fc717f6ed0afa77681c5346f1398d58df3c581de3e0a703fa29a8914f358392396251f7091`
-- **DB_NAME**: `veggify` (optional)
+- **MONGODB_URI**: `mongodb+srv://<user>:<password>@<your-cluster-url>/`
+- **JWT_SECRET**: `<your-long-random-secret-string>`
+- **DB_NAME**: `veggify`
 
 ## What to Do Right Now
 
