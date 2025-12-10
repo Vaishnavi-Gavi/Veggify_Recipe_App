@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config({ quiet: true });
 
 // Import the Express app from backend
 const app = require(path.join(__dirname, '..', 'backend', 'index.js'));
@@ -7,6 +8,31 @@ const app = require(path.join(__dirname, '..', 'backend', 'index.js'));
 module.exports = (req, res) => {
   try {
     console.log(`[api-proxy] ${req.method} ${req.url}`);
+
+    // Simple health check: quick verify without hitting Mongo
+    if (req.method === 'GET' && (req.url === '/api/health' || req.url === '/health')) {
+      console.log('[api-proxy] Health check requested');
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      return res.end(JSON.stringify({ ok: true, time: new Date().toISOString() }));
+    }
+
+    // Debug endpoint: report presence of required environment variables
+    if (req.method === 'GET' && (req.url === '/api/debug' || req.url === '/debug')) {
+      console.log('[api-proxy] Debug info requested');
+      const hasMongo = !!process.env.MONGODB_URI;
+      const hasJwt = !!process.env.JWT_SECRET;
+      res.setHeader('Content-Type', 'application/json');
+      res.statusCode = 200;
+      return res.end(JSON.stringify({ 
+        ok: true, 
+        hasMongo, 
+        hasJwt, 
+        nodeEnv: process.env.NODE_ENV || null,
+        mongoUri: hasMongo ? `***${process.env.MONGODB_URI.slice(-20)}` : null,
+        jwtSecret: hasJwt ? `***${process.env.JWT_SECRET.slice(-10)}` : null
+      }));
+    }
 
     // Set a 25-second timeout for the request (Vercel serverless timeout is 30s)
     const timeoutId = setTimeout(() => {
@@ -23,22 +49,6 @@ module.exports = (req, res) => {
       clearTimeout(timeoutId);
       console.log(`[api-proxy] Response sent for ${req.method} ${req.url}: ${res.statusCode}`);
     });
-
-    // Simple health check: quick verify without hitting Mongo
-    if (req.method === 'GET' && (req.url === '/api/health' || req.url === '/health')) {
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      return res.end(JSON.stringify({ ok: true, time: new Date().toISOString() }));
-    }
-
-    // Debug endpoint: report presence of required environment variables (DO NOT return values)
-    if (req.method === 'GET' && (req.url === '/api/debug' || req.url === '/debug')) {
-      const hasMongo = !!process.env.MONGODB_URI;
-      const hasJwt = !!process.env.JWT_SECRET;
-      res.setHeader('Content-Type', 'application/json');
-      res.statusCode = 200;
-      return res.end(JSON.stringify({ ok: true, hasMongo, hasJwt, nodeEnv: process.env.NODE_ENV || null }));
-    }
 
     // Forward request to Express app
     return app(req, res);
