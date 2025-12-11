@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm install && npm run build",
-  "outputDirectory": "frontend/dist",
-  "env": {
-    "MONGODB_URI": "@mongodb_uri",
-    "JWT_SECRET": "@jwt_secret"
-  },
   "builds": [
     {
       "src": "backend/index.js",
@@ -19,14 +13,14 @@
       }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "api/[...path].js"
+      "source": "/api/(.*)",
+      "destination": "/backend/index.js"
     },
     {
-      "src": "/(.*)",
-      "dest": "frontend/dist/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
